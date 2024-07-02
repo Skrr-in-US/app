@@ -12,8 +12,18 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		42E50430775D4DBC92F65E64 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F31D57B8DDC46E88EF9DD28 /* Pretendard-Light.ttf */; };
+		4D108FA2A2AF408F85474D86 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3567D25A35342F2A8F576DF /* Pretendard-SemiBold.ttf */; };
+		5ACA7A0AC1F94BA68600E182 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41BC4E1E1EB644C781885EBA /* Pretendard-Regular.ttf */; };
+		6DA3F088D3764468A1893FCE /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D95E85878A0D43C6938EC867 /* Pretendard-Medium.ttf */; };
+		74075B379119400B9D84F62A /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A784B7BFF3F4508B13BD461 /* Pretendard-Bold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Skrr-SkrrTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Skrr-SkrrTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		ABA1F32067DA46CD86D14BAE /* Pretendard-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBC783F4E1104368BD1966F6 /* Pretendard-ExtraBold.ttf */; };
+		B974DABAB18444CDB701CBD8 /* Pretendard-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD00FD84E71246CD801C7363 /* Pretendard-ExtraLight.ttf */; };
+		C98CCFC1A64568D18601D4DD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B671BEF1DCB6760D7A93050E /* PrivacyInfo.xcprivacy */; };
+		D3708809774D4A39A369E383 /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F7272B83774CD385C86C18 /* Pretendard-Black.ttf */; };
+		E27289373C8240F29FA4FEF3 /* Pretendard-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9ABF1171CDE14864BA283E23 /* Pretendard-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,14 +46,24 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Skrr/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Skrr/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Skrr/main.m; sourceTree = "<group>"; };
-	    13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Skrr/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Skrr/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Skrr-SkrrTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Skrr-SkrrTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A784B7BFF3F4508B13BD461 /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.ttf"; path = "../src/assets/fonts/Pretendard-Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Skrr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skrr.debug.xcconfig"; path = "Target Support Files/Pods-Skrr/Pods-Skrr.debug.xcconfig"; sourceTree = "<group>"; };
+		41BC4E1E1EB644C781885EBA /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Regular.ttf"; path = "../src/assets/fonts/Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Skrr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skrr.release.xcconfig"; path = "Target Support Files/Pods-Skrr/Pods-Skrr.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Skrr-SkrrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skrr-SkrrTests.debug.xcconfig"; path = "Target Support Files/Pods-Skrr-SkrrTests/Pods-Skrr-SkrrTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Skrr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Skrr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64F7272B83774CD385C86C18 /* Pretendard-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.ttf"; path = "../src/assets/fonts/Pretendard-Black.ttf"; sourceTree = "<group>"; };
+		7F31D57B8DDC46E88EF9DD28 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Light.ttf"; path = "../src/assets/fonts/Pretendard-Light.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Skrr/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Skrr-SkrrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skrr-SkrrTests.release.xcconfig"; path = "Target Support Files/Pods-Skrr-SkrrTests/Pods-Skrr-SkrrTests.release.xcconfig"; sourceTree = "<group>"; };
+		9ABF1171CDE14864BA283E23 /* Pretendard-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Thin.ttf"; path = "../src/assets/fonts/Pretendard-Thin.ttf"; sourceTree = "<group>"; };
+		B3567D25A35342F2A8F576DF /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.ttf"; path = "../src/assets/fonts/Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
+		B671BEF1DCB6760D7A93050E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Skrr/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		BBC783F4E1104368BD1966F6 /* Pretendard-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.ttf"; path = "../src/assets/fonts/Pretendard-ExtraBold.ttf"; sourceTree = "<group>"; };
+		D95E85878A0D43C6938EC867 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Medium.ttf"; path = "../src/assets/fonts/Pretendard-Medium.ttf"; sourceTree = "<group>"; };
+		DD00FD84E71246CD801C7363 /* Pretendard-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraLight.ttf"; path = "../src/assets/fonts/Pretendard-ExtraLight.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -94,6 +114,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				B671BEF1DCB6760D7A93050E /* PrivacyInfo.xcprivacy */,
 			);
 			name = Skrr;
 			sourceTree = "<group>";
@@ -106,6 +127,23 @@
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-Skrr-SkrrTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		40AEDFFF4C674C7E829FB127 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				64F7272B83774CD385C86C18 /* Pretendard-Black.ttf */,
+				3A784B7BFF3F4508B13BD461 /* Pretendard-Bold.ttf */,
+				BBC783F4E1104368BD1966F6 /* Pretendard-ExtraBold.ttf */,
+				DD00FD84E71246CD801C7363 /* Pretendard-ExtraLight.ttf */,
+				7F31D57B8DDC46E88EF9DD28 /* Pretendard-Light.ttf */,
+				D95E85878A0D43C6938EC867 /* Pretendard-Medium.ttf */,
+				41BC4E1E1EB644C781885EBA /* Pretendard-Regular.ttf */,
+				B3567D25A35342F2A8F576DF /* Pretendard-SemiBold.ttf */,
+				9ABF1171CDE14864BA283E23 /* Pretendard-Thin.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -124,6 +162,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				40AEDFFF4C674C7E829FB127 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -245,6 +284,16 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				C98CCFC1A64568D18601D4DD /* PrivacyInfo.xcprivacy in Resources */,
+				D3708809774D4A39A369E383 /* Pretendard-Black.ttf in Resources */,
+				74075B379119400B9D84F62A /* Pretendard-Bold.ttf in Resources */,
+				ABA1F32067DA46CD86D14BAE /* Pretendard-ExtraBold.ttf in Resources */,
+				B974DABAB18444CDB701CBD8 /* Pretendard-ExtraLight.ttf in Resources */,
+				42E50430775D4DBC92F65E64 /* Pretendard-Light.ttf in Resources */,
+				6DA3F088D3764468A1893FCE /* Pretendard-Medium.ttf in Resources */,
+				5ACA7A0AC1F94BA68600E182 /* Pretendard-Regular.ttf in Resources */,
+				4D108FA2A2AF408F85474D86 /* Pretendard-SemiBold.ttf in Resources */,
+				E27289373C8240F29FA4FEF3 /* Pretendard-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +566,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -544,6 +594,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -563,6 +614,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -582,7 +635,13 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -590,6 +649,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -617,6 +677,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -629,6 +690,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -647,7 +710,13 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
