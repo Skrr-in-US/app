@@ -2,10 +2,10 @@ import {queryOptions} from '@tanstack/react-query';
 import {getAlert, getAlertDetail, getQuestion} from './api';
 
 export const query = {
-  question: () =>
+  question: (except?: string) =>
     queryOptions({
-      queryKey: ['question'],
-      queryFn: getQuestion,
+      queryKey: ['question', except],
+      queryFn: () => getQuestion(except),
     }),
   alert: () =>
     queryOptions({
