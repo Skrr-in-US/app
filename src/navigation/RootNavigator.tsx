@@ -8,19 +8,33 @@ import VoteScreen from '../screens/VoteScreen';
 import HeaderVoteButton from '../components/HeaderVoteButton';
 import HeaderInboxButton from '../components/HeaderInboxButton';
 import {theme} from '../styles/theme';
+import OnboardingScreen from '../screens/OnboardingScreen';
+import GradeScreen from '../screens/GradeScreen';
+import SchoolScreen from '../screens/SchoolScreen';
+import FirstNameScreen from '../screens/FirstNameScreen';
+import LastNameScreen from '../screens/LastNameScreen';
+import GenderScreen from '../screens/GenderScreen';
+import NoticeScreen from '../screens/NoticeScreen';
+import DescriptionScreen from '../screens/DescriptionScreen';
+import PasswordScreen from '../screens/PasswordScreen';
+import {useAtom} from 'jotai';
+import {modalAtom} from '../context';
 
 const FormStack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
+  const [modal] = useAtom(modalAtom);
   return (
     <NavigationContainer>
-      <FormStack.Navigator>
+      {modal.visible && <>{modal.component}</>}
+      <FormStack.Navigator initialRouteName="Onboarding">
         <FormStack.Screen
           name="Inbox"
           component={InboxScreen}
           options={({navigation}) => ({
             headerRight: () =>
               HeaderVoteButton({navigation, color: theme.gray}),
+            headerLeft: null as any,
             headerTitleStyle: {fontWeight: '800', fontSize: 17},
           })}
         />
@@ -32,7 +46,7 @@ const RootNavigator = () => {
           }}
         />
         <FormStack.Screen
-          name="Vote"
+          name="Skrr"
           component={VoteScreen}
           options={({navigation}) => ({
             headerLeft: () =>
@@ -44,6 +58,69 @@ const RootNavigator = () => {
             },
             headerTransparent: true,
           })}
+        />
+        <FormStack.Screen
+          name="Onboarding"
+          component={OnboardingScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Grade"
+          component={GradeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="School"
+          component={SchoolScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="FirstName"
+          component={FirstNameScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="LastName"
+          component={LastNameScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Gender"
+          component={GenderScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Notice"
+          component={NoticeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Description"
+          component={DescriptionScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Password"
+          component={PasswordScreen}
+          options={{
+            headerShown: false,
+          }}
         />
       </FormStack.Navigator>
     </NavigationContainer>
