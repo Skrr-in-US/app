@@ -14,8 +14,11 @@ export const createQuestion = async (query: CreateQuestionDto) => {
   return data;
 };
 
-export const getQuestion = async () => {
-  const {data} = await skrr.get('/question', await authorization());
+export const getQuestion = async (except?: string) => {
+  const {data} = await skrr.get('/question', {
+    ...(await authorization()),
+    params: {except},
+  });
   return data;
 };
 
@@ -26,6 +29,11 @@ export const updateQuestion = async (id: number) => {
 
 export const deleteQuestion = async (id: number) => {
   const {data} = await skrr.delete(`/question/${id}`);
+  return data;
+};
+
+export const shuffleQuestion = async () => {
+  const {data} = await skrr.get('/question/shuffle', await authorization());
   return data;
 };
 
@@ -49,5 +57,17 @@ export const getAlert = async () => {
 
 export const getAlertDetail = async (id: number) => {
   const {data} = await skrr.get(`/alert/${id}`, await authorization());
+  return data;
+};
+
+// auth
+
+export const requestSignup = async (signup: any) => {
+  const {data} = await skrr.post('/auth', signup);
+  return data;
+};
+
+export const requestSignin = async (signin: any) => {
+  const {data} = await skrr.post('/auth/login', signin);
   return data;
 };
