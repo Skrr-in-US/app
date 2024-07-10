@@ -4,7 +4,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import RootStackParamList from '../types/RootStackParamList';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Vote'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Skrr'>;
   color: string;
 };
 

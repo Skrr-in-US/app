@@ -12,9 +12,9 @@ type Props = {
 const HeaderVoteButton = ({navigation, color}: Props) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Vote')}
+      onPress={() => navigation.navigate('Skrr')}
       style={styles.container}>
-      <Text style={{...styles.text, color}}>Gas</Text>
+      <Text style={{...styles.text, color}}>Skrr</Text>
     </TouchableOpacity>
   );
 };
