@@ -1,33 +1,122 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {theme} from '../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import {StackNavigationProp} from '@react-navigation/stack';
+import RootStackParamList from '../types/RootStackParamList';
+import {RouteProp} from '@react-navigation/native';
+import {useQuery} from '@tanstack/react-query';
+import {query} from '../services/query';
+import ViewShot from 'react-native-view-shot';
+import Share from 'react-native-share';
+import {useModal} from '../hooks/useModal';
+import PaymentModal from '../components/PaymentModal';
 
-const DetailScreen = () => {
+type Props = {
+  route: RouteProp<RootStackParamList, 'Detail'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Detail'>;
+};
+
+const backgroundColorList = [
+  '#8E34FF',
+  '#E95FE4',
+  '#4E7CF2',
+  '#F27F4E',
+  '#32C08C',
+  '#85CD11',
+  '#11ABCD',
+  '#6F8DA4',
+  '#885851',
+  '#555555',
+  '#F35252',
+  '#F0AF31',
+];
+
+const DetailScreen: React.FC<Props> = ({route, navigation}) => {
+  const backgroundColor = backgroundColorList[Math.round(Math.random() * 12)];
+  const {id} = route.params;
+  const {data} = useQuery(query.alertDetail(id));
+  const {openModal} = useModal();
+
+  const genderImage = (() => {
+    switch (data?.gender) {
+      case 'boy':
+        return require('../assets/images/Boy.png');
+      case 'girl':
+        return require('../assets/images/Girl.png');
+      case 'non-binary':
+        return require('../assets/images/Non-binary.png');
+    }
+  })();
+
+  const viewShotRef = useRef<ViewShot>(null);
+
+  const handleOpenPaymentModal = () => {
+    openModal({component: <PaymentModal />});
+  };
+
+  const onPressCaptureAndShare = async () => {
+    const uri = await viewShotRef.current?.capture?.();
+    if (uri) {
+      const image = Platform.OS === 'android' ? uri : uri;
+
+      const {success} = await Share.shareSingle({
+        social: Share.Social.INSTAGRAM_STORIES as any,
+        appId: '1001723847816320',
+        backgroundImage: image,
+        backgroundBottomColor: theme.quiz.pink,
+        backgroundTopColor: theme.quiz.pink,
+      });
+
+      console.log(success);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.wrap}>
-        <Image source={require('../assets/images/Girl.png')} />
-        <Text style={styles.author}>
-          From a girl
-          {'\n'}
-          in 12th grade
-        </Text>
-        <Text style={styles.question}>
-          the one your parents think{'\n'}
-          is good but is secretly bad
-        </Text>
-        <View style={styles.authorBox}>
-          <View style={styles.authorButton}>
-            <Text style={styles.authorText}>Anna Grace Smith</Text>
-          </View>
+      <View style={[styles.wrap, {backgroundColor}]}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.back}>
           <Image
-            style={styles.authorEmoji}
-            source={require('../assets/images/backhand.png')}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{width: 17, height: 17}}
+            source={require('../assets/images/arrow.png')}
           />
-        </View>
-        <Text style={styles.noticeText}>Skrr app on appstore</Text>
-        <TouchableOpacity style={styles.share}>
+        </TouchableOpacity>
+        <ViewShot
+          ref={viewShotRef}
+          style={[styles.screenshot, {backgroundColor}]}>
+          <Image
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{width: 60, height: 60}}
+            source={genderImage}
+          />
+          <Text style={styles.author}>
+            From a {data?.gender}
+            {'\n'}
+            in {data?.sendUserGrade}th grade
+          </Text>
+          <Text style={styles.question}>{data?.question}</Text>
+          <View style={styles.authorBox}>
+            <View style={styles.authorButton}>
+              <Text style={styles.authorText}>{data?.receiveUserName}</Text>
+            </View>
+            <Image
+              style={styles.authorEmoji}
+              source={require('../assets/images/backhand.png')}
+            />
+          </View>
+          <Text style={styles.noticeText}>Skrr app on appstore</Text>
+        </ViewShot>
+        <TouchableOpacity onPress={onPressCaptureAndShare} style={styles.share}>
           <LinearGradient
             colors={[
               '#ECCD60',
@@ -49,7 +138,9 @@ const DetailScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.unlockButton}>
+        <TouchableOpacity
+          onPress={handleOpenPaymentModal}
+          style={styles.unlockButton}>
           <Text style={styles.unlockText}>🔒 See who sent it</Text>
         </TouchableOpacity>
       </View>
@@ -64,14 +155,25 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     backgroundColor: theme.black,
   },
+  back: {
+    position: 'absolute',
+    left: 16,
+    top: 16,
+  },
   wrap: {
     flex: 10,
     width: '100%',
-    backgroundColor: theme.quiz.pink,
     borderRadius: 12,
     alignItems: 'center',
     paddingTop: 40,
     paddingHorizontal: 14,
+    gap: 26,
+  },
+  screenshot: {
+    flex: 10,
+    width: '100%',
+    borderRadius: 12,
+    alignItems: 'center',
     gap: 26,
   },
   personImage: {

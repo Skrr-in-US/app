@@ -10,29 +10,52 @@ import {
 import {theme} from '../styles/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import RootStackParamList from '../types/RootStackParamList';
+import {useQuery} from '@tanstack/react-query';
+import {query} from '../services/query';
+import {useModal} from '../hooks/useModal';
+import PaymentModal from '../components/PaymentModal';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Inbox'>;
 };
 
 const InboxScreen: React.FC<Props> = ({navigation}) => {
+  const {openModal} = useModal();
+  const {data, isSuccess} = useQuery(query.alert());
+
+  const handleOpenPaymentModal = () => {
+    openModal({component: <PaymentModal />});
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.inboxList}>
-        {Array.from({length: 30}).map((_, index) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Detail')}
-            style={styles.inboxItem}
-            key={index}>
-            <Image
-              style={styles.diamonds}
-              source={require('../assets/images/blue-diamonds.png')}
-            />
-            <Text style={styles.author}>From a boy</Text>
-          </TouchableOpacity>
-        ))}
+        {isSuccess &&
+          data.map((inbox: any) => {
+            const imageSource = (() => {
+              switch (inbox.gender) {
+                case 'boy':
+                  return require('../assets/images/blue-diamonds.png');
+                case 'girl':
+                  return require('../assets/images/red-diamonds.png');
+                case 'non-binary':
+                  return require('../assets/images/blue-diamonds.png');
+              }
+            })();
+            return (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Detail', {id: inbox.id})}
+                style={styles.inboxItem}
+                key={inbox.id}>
+                <Image style={styles.diamonds} source={imageSource} />
+                <Text style={styles.author}>From a {inbox.gender}</Text>
+              </TouchableOpacity>
+            );
+          })}
       </ScrollView>
-      <TouchableOpacity style={styles.unlockBox}>
+      <TouchableOpacity
+        onPress={handleOpenPaymentModal}
+        style={styles.unlockBox}>
         <View style={styles.unlockButton}>
           <Text style={styles.unlockText}>🔒 See who likes you</Text>
         </View>
