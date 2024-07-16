@@ -71,3 +71,8 @@ export const requestSignin = async (signin: any) => {
   const {data} = await skrr.post('/auth/login', signin);
   return data;
 };
+
+export const getUser = async () => {
+  const {data} = await skrr.get('/auth/user', await authorization());
+  return data;
+};

@@ -1,5 +1,6 @@
 import {queryOptions} from '@tanstack/react-query';
-import {getAlert, getAlertDetail, getQuestion} from './api';
+import {getAlert, getAlertDetail, getQuestion, getUser} from './api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const query = {
   question: (except?: string) =>
@@ -16,5 +17,11 @@ export const query = {
     queryOptions({
       queryKey: ['alertDetail', id],
       queryFn: () => getAlertDetail(id),
+    }),
+  user: () =>
+    queryOptions({
+      queryKey: ['user'],
+      queryFn: getUser,
+      enabled: !!(async () => await AsyncStorage.getItem('@token'))(),
     }),
 };

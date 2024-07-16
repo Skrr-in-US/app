@@ -11,6 +11,7 @@ type RootStackParamList = {
   Description: undefined;
   Skrr: undefined;
   Password: undefined;
+  Age: undefined;
 };
 
 export default RootStackParamList;
