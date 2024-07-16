@@ -6,8 +6,9 @@ export const signupAtom = atom({
   firstName: '',
   lastName: '',
   gender: '',
-  age: 0,
+  age: '' as unknown as number,
   password: '',
+  isLoginMode: false,
 });
 
 export const voteAtom = atom({

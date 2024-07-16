@@ -2,15 +2,11 @@ import {useAtom} from 'jotai';
 import {userAtom} from '../context';
 import {useQuery} from '@tanstack/react-query';
 import {useEffect} from 'react';
+import {query} from '../services/query';
 
 export const useUser = () => {
   const [user, setUser] = useAtom(userAtom);
-
-  const {data: userInfo} = useQuery({
-    queryKey: ['user'],
-    // queryFn: getMyInformation,
-    // enabled: !!Storage.getItem(TOKEN.ACCESS),
-  });
+  const {data: userInfo} = useQuery(query.user());
 
   useEffect(() => {
     if (userInfo) {
