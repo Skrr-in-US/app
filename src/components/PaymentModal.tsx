@@ -71,7 +71,9 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: '92%',
-    height: '82%',
+    height: '72%',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 17,
     borderWidth: 2.4,
     borderColor: '#D68F24',
@@ -80,9 +82,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 8,
     elevation: 8,
-    alignItems: 'center',
     paddingVertical: 30,
-    gap: 16,
+    gap: 20,
   },
   title: {
     fontSize: 27.6,
