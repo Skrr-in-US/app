@@ -19,6 +19,7 @@ import DescriptionScreen from '../screens/DescriptionScreen';
 import PasswordScreen from '../screens/PasswordScreen';
 import {useAtom} from 'jotai';
 import {modalAtom} from '../context';
+import AgeScreen from '../screens/AgeScreen';
 
 const FormStack = createStackNavigator<RootStackParamList>();
 
@@ -55,6 +56,11 @@ const RootNavigator = () => {
               fontWeight: '800',
               fontSize: 17,
               color: theme.white,
+            },
+            headerBackgroundContainerStyle: {
+              width: '100%',
+              borderBottomWidth: 1,
+              borderBottomColor: theme.white,
             },
             headerTransparent: true,
           })}
@@ -118,6 +124,13 @@ const RootNavigator = () => {
         <FormStack.Screen
           name="Password"
           component={PasswordScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Age"
+          component={AgeScreen}
           options={{
             headerShown: false,
           }}
