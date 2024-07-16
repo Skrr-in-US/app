@@ -8,6 +8,7 @@ import {useAtomValue} from 'jotai';
 import {signupAtom} from '../context';
 import {useSignin, useSignup} from '../services/mutation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Notice'>;
@@ -21,23 +22,27 @@ const NoticeScreen: React.FC<Props> = ({navigation}) => {
   useEffect(() => {
     requestNotifications(['alert'])
       .then(async res => {
-        console.log(res);
-        console.log(res.status);
         if (res.status === 'granted') {
+          const fcd = await messaging().getToken();
+          console.log(fcd);
           const name = `${signup.firstName} ${signup.lastName}`;
           const {age, grade, password, school, gender} = signup;
-          const signupContext = {
+          const signupData = {
             age,
             grade,
             password,
             school,
             name,
+            fcd,
             gender: gender.toLowerCase(),
           };
 
-          await signupMutate(signupContext);
+          if (!signup.isLoginMode) {
+            await signupMutate(signupData);
+          }
+
           const token = await signinMutate({age, name, password});
-          AsyncStorage.setItem('token', token);
+          AsyncStorage.setItem('@token', token);
           navigation.navigate('Description');
         }
       })

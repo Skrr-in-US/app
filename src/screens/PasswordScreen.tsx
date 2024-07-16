@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -19,37 +21,39 @@ type Props = {
 
 const PasswordScreen: React.FC<Props> = ({navigation}) => {
   const [signup, setSignup] = useAtom(signupAtom);
-  const isTyping = !!signup.lastName.length;
+  const isTyping = !!signup.password.length;
 
   return (
-    <View style={styles.container}>
-      {isTyping && (
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image
-              style={styles.image}
-              source={require('../assets/images/arrow.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
-      <Text style={styles.question}>Enter your password</Text>
-      <TextInput
-        placeholder="Password"
-        style={styles.input}
-        onChangeText={text => setSignup(prev => ({...prev, password: text}))}
-        value={signup.password}
-        secureTextEntry
-        placeholderTextColor={`${theme.white}88`}
-      />
-      <TouchableOpacity
-        disabled={!isTyping}
-        onPress={() => navigation.navigate('Gender')}
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={[styles.button, !isTyping && {opacity: 0.5}]}>
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView behavior="height">
+      <SafeAreaView style={styles.container}>
+        {isTyping && (
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Image
+                style={styles.image}
+                source={require('../assets/images/arrow.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+        <Text style={styles.question}>Enter your password</Text>
+        <TextInput
+          placeholder="Password"
+          style={styles.input}
+          onChangeText={text => setSignup(prev => ({...prev, password: text}))}
+          value={signup.password}
+          secureTextEntry
+          placeholderTextColor={`${theme.white}88`}
+        />
+        <TouchableOpacity
+          disabled={!isTyping}
+          onPress={() => navigation.navigate('Notice')}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={[styles.button, !isTyping && {opacity: 0.5}]}>
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 40,
+    gap: 30,
   },
   image: {
     width: 17,
@@ -88,15 +92,17 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    left: 14,
-    top: 50,
+    left: '6%',
+    top: '8%',
     fontWeight: '400',
     fontSize: 18,
     color: theme.white,
   },
   input: {
+    textAlign: 'center',
     fontWeight: '400',
     fontSize: 28,
+    width: '60%',
     color: theme.white,
   },
 });

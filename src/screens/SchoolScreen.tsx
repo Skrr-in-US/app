@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    left: 12,
+    left: '6%',
     bottom: 22,
   },
   body: {

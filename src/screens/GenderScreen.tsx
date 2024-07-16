@@ -20,11 +20,19 @@ const GenderScreen: React.FC<Props> = ({navigation}) => {
   const setSignup = useSetAtom(signupAtom);
   const handleSetGender = (gender: string) => {
     setSignup(prev => ({...prev, gender}));
-    navigation.navigate('Notice');
+    navigation.navigate('Password');
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            style={styles.image}
+            source={require('../assets/images/arrow.png')}
+          />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.question}>What’s your gender?</Text>
       <View style={styles.genderList}>
         {genderList.map(gender => (
@@ -56,6 +64,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 40,
   },
+  header: {
+    position: 'absolute',
+    left: '6%',
+    top: '8%',
+    fontWeight: '400',
+    fontSize: 18,
+    color: theme.white,
+  },
+  image: {
+    width: 17,
+    height: 17,
+  },
   question: {
     fontSize: 20,
     fontWeight: '600',
@@ -75,14 +95,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 18,
     color: theme.black,
-  },
-  header: {
-    position: 'absolute',
-    right: 14,
-    top: 30,
-    fontWeight: '400',
-    fontSize: 18,
-    color: theme.white,
   },
   input: {
     fontWeight: '400',

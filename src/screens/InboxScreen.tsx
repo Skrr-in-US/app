@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 10,
-    bottom: 20,
+    bottom: '5%',
   },
   unlockButton: {
     width: '100%',

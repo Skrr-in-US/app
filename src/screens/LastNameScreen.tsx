@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -21,34 +23,45 @@ const LastNameScreen: React.FC<Props> = ({navigation}) => {
   const [signup, setSignup] = useAtom(signupAtom);
   const isTyping = !!signup.lastName.length;
 
+  const handleNextStep = () => {
+    if (signup.isLoginMode) {
+      // 로그인 중이면
+      return navigation.navigate('Password');
+    }
+    // 회원가입 중이면
+    return navigation.navigate('Gender');
+  };
+
   return (
-    <View style={styles.container}>
-      {isTyping && (
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image
-              style={styles.image}
-              source={require('../assets/images/arrow.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
-      <Text style={styles.question}>What’s your last name?</Text>
-      <TextInput
-        placeholder="Last Name"
-        style={styles.input}
-        onChangeText={text => setSignup(prev => ({...prev, lastName: text}))}
-        value={signup.lastName}
-        placeholderTextColor={`${theme.white}88`}
-      />
-      <TouchableOpacity
-        disabled={!isTyping}
-        onPress={() => navigation.navigate('Password')}
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={[styles.button, !isTyping && {opacity: 0.5}]}>
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView behavior="height">
+      <SafeAreaView style={styles.container}>
+        {isTyping && (
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Image
+                style={styles.image}
+                source={require('../assets/images/arrow.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+        <Text style={styles.question}>What’s your last name?</Text>
+        <TextInput
+          placeholder="Last Name"
+          style={styles.input}
+          onChangeText={text => setSignup(prev => ({...prev, lastName: text}))}
+          value={signup.lastName}
+          placeholderTextColor={`${theme.white}88`}
+        />
+        <TouchableOpacity
+          disabled={!isTyping}
+          onPress={handleNextStep}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={[styles.button, !isTyping && {opacity: 0.5}]}>
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -87,8 +100,8 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    left: 14,
-    top: 50,
+    left: '6%',
+    top: '8%',
     fontWeight: '400',
     fontSize: 18,
     color: theme.white,

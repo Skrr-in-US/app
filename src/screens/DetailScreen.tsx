@@ -94,27 +94,31 @@ const DetailScreen: React.FC<Props> = ({route, navigation}) => {
         <ViewShot
           ref={viewShotRef}
           style={[styles.screenshot, {backgroundColor}]}>
-          <Image
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{width: 60, height: 60}}
-            source={genderImage}
-          />
-          <Text style={styles.author}>
-            From a {data?.gender}
-            {'\n'}
-            in {data?.sendUserGrade}th grade
-          </Text>
-          <Text style={styles.question}>{data?.question}</Text>
-          <View style={styles.authorBox}>
-            <View style={styles.authorButton}>
-              <Text style={styles.authorText}>{data?.receiveUserName}</Text>
-            </View>
+          <View style={styles.column}>
             <Image
-              style={styles.authorEmoji}
-              source={require('../assets/images/backhand.png')}
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{width: 60, height: 60}}
+              source={genderImage}
             />
+            <Text style={styles.author}>
+              From a {data?.gender}
+              {'\n'}
+              in {data?.sendUserGrade}th grade
+            </Text>
           </View>
-          <Text style={styles.noticeText}>Skrr app on appstore</Text>
+          <Text style={styles.question}>{data?.question}</Text>
+          <View style={styles.column}>
+            <View style={styles.authorBox}>
+              <View style={styles.authorButton}>
+                <Text style={styles.authorText}>{data?.receiveUserName}</Text>
+              </View>
+              <Image
+                style={styles.authorEmoji}
+                source={require('../assets/images/backhand.png')}
+              />
+            </View>
+            <Text style={styles.noticeText}>Skrr app on appstore</Text>
+          </View>
         </ViewShot>
         <TouchableOpacity onPress={onPressCaptureAndShare} style={styles.share}>
           <LinearGradient
@@ -173,8 +177,14 @@ const styles = StyleSheet.create({
     flex: 10,
     width: '100%',
     borderRadius: 12,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 26,
+    gap: 42,
+  },
+  column: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
   },
   personImage: {
     width: 60,
@@ -190,6 +200,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: theme.white,
+    paddingHorizontal: '6%',
+    textAlign: 'center',
   },
   authorBox: {
     position: 'relative',
@@ -231,6 +243,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: '6%',
   },
   share: {
     width: '100%',
@@ -261,7 +274,7 @@ const styles = StyleSheet.create({
     borderRadius: 28,
   },
   unlockButton: {
-    width: '100%',
+    width: '94%',
     height: 55,
     backgroundColor: theme.grey,
     borderRadius: 30,

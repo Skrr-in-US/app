@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -12,14 +14,24 @@ import RootStackParamList from '../types/RootStackParamList';
 import {theme} from '../styles/theme';
 import {useAtom} from 'jotai';
 import {signupAtom} from '../context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useUser} from '../hooks/useUser';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Onboarding'>;
 };
 
 const OnboardingScreen: React.FC<Props> = ({navigation}) => {
+  const {isLoggedIn} = useUser();
   const [signup, setSignup] = useAtom(signupAtom);
+  const isTyping = !!signup.age;
+
+  useEffect(() => {
+    console.log('왜야ㅏㄴ디냐고');
+    console.log(isLoggedIn);
+    if (isLoggedIn) {
+      navigation.navigate('Skrr');
+    }
+  }, [isLoggedIn, navigation]);
 
   const handleSignup = (ageText: string) => {
     const age = Number(ageText);
@@ -29,35 +41,43 @@ const OnboardingScreen: React.FC<Props> = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      if (await AsyncStorage.getItem('token')) {
-        navigation.navigate('Skrr');
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const handleSignin = () => {
+    setSignup(prev => ({...prev, isLoginMode: true}));
+    navigation.navigate('Age');
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Log In</Text>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/logo.png')}
-      />
-      <TextInput
-        placeholder="Enter your age"
-        style={styles.input}
-        onChangeText={handleSignup}
-        value={String(signup.age)}
-        placeholderTextColor={`${theme.white}88`}
-      />
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Grade')}
-        style={[styles.button]}>
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView behavior="height">
+      <SafeAreaView style={styles.container}>
+        <Text onPress={handleSignin} style={styles.header}>
+          Log In
+        </Text>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/logo.png')}
+        />
+        <View style={styles.textBox}>
+          <Text style={styles.ageText}>Enter your age</Text>
+          <TextInput
+            placeholder="Age"
+            style={styles.input}
+            onChangeText={handleSignup}
+            value={String(signup.age)}
+            placeholderTextColor={`${theme.white}88`}
+          />
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            setSignup(prev => ({...prev, isLoginMode: false}));
+            navigation.navigate('Grade');
+          }}
+          disabled={!isTyping}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={[styles.button, !isTyping && {opacity: 0.5}]}>
+          <Text style={styles.buttonText}>Get Started</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -92,7 +112,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     right: 14,
-    top: 30,
+    top: '7%',
     fontWeight: '400',
     fontSize: 18,
     color: theme.white,
@@ -111,6 +131,15 @@ const styles = StyleSheet.create({
   pickerItemLabel: {
     color: '#000000',
     fontSize: 25,
+  },
+  textBox: {
+    gap: 20,
+    alignItems: 'center',
+  },
+  ageText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: theme.white,
   },
 });
 

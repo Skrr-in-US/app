@@ -34,6 +34,8 @@ const VoteScreen = () => {
   const [vote, setVote] = useAtom(voteAtom);
   const [except, setExcept] = useState('');
   const [isVoted, setIsVoted] = useState(0);
+  const [isShuffled, setIsShuffled] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const {mutateAsync: shuffle} = useShuffleQuestion();
   const {data} = useQuery(query.question(except));
   const [userList, setUserList] = useState([] as any);
@@ -45,6 +47,7 @@ const VoteScreen = () => {
       summary: data.question.summary,
       gender: user.gender,
     });
+    setIsSelected(true);
     setIsVoted(user.id);
   };
 
@@ -54,13 +57,16 @@ const VoteScreen = () => {
       setExcept(String(data.question.id));
       return setVote(prev => ({...prev, step: 1}));
     }
+    setIsSelected(false);
     setVote(prev => ({...prev, step: prev.step + 1}));
     setIsVoted(0);
     setExcept(String(data.question.id));
+    setIsShuffled(false);
   };
 
   const shuffleVote = async () => {
     setUserList(await shuffle());
+    setIsShuffled(true);
   };
 
   const generateShuffleButton = () => {
@@ -123,11 +129,13 @@ const VoteScreen = () => {
               keyExtractor={item => item.id}
               numColumns={2} // Number of columns in the grid
             />
-            {isVoted ? (
-              <Text style={styles.continue}>Tap to continue</Text>
-            ) : (
-              generateShuffleButton()
+            {!!isVoted && (
+              <View style={styles.continue}>
+                <Text style={styles.continueText}>Tap to continue</Text>
+              </View>
             )}
+            {!isShuffled && !isVoted && generateShuffleButton()}
+            {!isSelected && isShuffled && <View style={styles.shuffleBlank} />}
           </View>
         </View>
       </View>
@@ -141,7 +149,6 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     backgroundColor: theme.quiz.purple,
-    paddingTop: 65,
   },
   wrap: {
     width: '100%',
@@ -150,7 +157,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     padding: 30,
     alignItems: 'center',
-    gap: 30,
+    justifyContent: 'center',
+    gap: 60,
   },
   questionProcess: {
     fontSize: 18,
@@ -190,16 +198,23 @@ const styles = StyleSheet.create({
     color: theme.black,
   },
   column: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
   },
   continue: {
     height: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  continueText: {
     fontWeight: '600',
     fontSize: 17,
     color: theme.white,
+  },
+  shuffleBlank: {
+    width: 3,
+    height: 28,
   },
   shuffleButton: {
     flexDirection: 'row',
