@@ -6,13 +6,16 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Share,
 } from 'react-native';
 import {theme} from '../styles/theme';
 import {useQuery} from '@tanstack/react-query';
 import {query} from '../services/query';
 import {useAtom} from 'jotai';
-import {voteAtom} from '../context';
+import {colorAtom, isNeedInviteAtom, voteAtom} from '../context';
 import {useCreateAlert, useShuffleQuestion} from '../services/mutation';
+import {useUser} from '../hooks/useUser';
+import {WebView} from 'react-native-webview';
 import {shuffleArray} from '../utils/shuffleArray';
 
 const backgroundColorList = shuffleArray([
@@ -32,22 +35,33 @@ const backgroundColorList = shuffleArray([
 
 const VoteScreen = () => {
   const [vote, setVote] = useAtom(voteAtom);
+  const [isNeedInvite, setIsNeedInvite] = useAtom(isNeedInviteAtom);
   const [except, setExcept] = useState('');
   const [isVoted, setIsVoted] = useState(0);
-  const [isShuffled, setIsShuffled] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
+  const [isShuffled, setIsShuffled] = useState(0);
   const {mutateAsync: shuffle} = useShuffleQuestion();
-  const {data} = useQuery(query.question(except));
+  const {data, refetch} = useQuery(query.question(except));
+  const {user: userData} = useUser();
   const [userList, setUserList] = useState([] as any);
-  const {mutate} = useCreateAlert();
+  const {mutateAsync} = useCreateAlert();
+  const [backgroundColor, setBackgroundColor] = useAtom(colorAtom);
 
-  const handleVote = (user: any) => {
-    mutate({
+  console.log(data);
+
+  useEffect(() => {
+    if (!backgroundColor.length) {
+      setBackgroundColor(backgroundColorList);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setBackgroundColor]);
+
+  const handleVote = async (user: any) => {
+    await mutateAsync({
       receiveUser: user.id,
       summary: data.question.summary,
-      gender: user.gender,
+      question: data.question.question,
+      gender: userData[0].gender,
     });
-    setIsSelected(true);
     setIsVoted(user.id);
   };
 
@@ -57,16 +71,15 @@ const VoteScreen = () => {
       setExcept(String(data.question.id));
       return setVote(prev => ({...prev, step: 1}));
     }
-    setIsSelected(false);
     setVote(prev => ({...prev, step: prev.step + 1}));
     setIsVoted(0);
     setExcept(String(data.question.id));
-    setIsShuffled(false);
+    setIsShuffled(0);
   };
 
   const shuffleVote = async () => {
     setUserList(await shuffle());
-    setIsShuffled(true);
+    setIsShuffled(prev => prev + 1);
   };
 
   const generateShuffleButton = () => {
@@ -84,10 +97,20 @@ const VoteScreen = () => {
   };
 
   useEffect(() => {
+    if (data?.isLock) {
+      return setIsNeedInvite(true);
+    }
+    setIsNeedInvite(false);
     setUserList(data?.users);
-  }, [data]);
+  }, [data, setIsNeedInvite]);
 
-  return (
+  return isNeedInvite ? (
+    <InviteView
+      people={data?.people}
+      school={data?.school}
+      refresh={() => refetch()}
+    />
+  ) : (
     <>
       {!!isVoted && (
         <TouchableOpacity onPress={nextVote} style={styles.continueClick} />
@@ -95,19 +118,21 @@ const VoteScreen = () => {
       <View
         style={[
           styles.container,
-          {backgroundColor: backgroundColorList[vote.step - 1]},
+          {backgroundColor: backgroundColor[vote.step - 1]},
         ]}>
         <View style={styles.wrap}>
           <Text style={styles.questionProcess}>{vote.step} of 12</Text>
           <View style={styles.questionBox}>
-            <Image
-              alt={data?.question?.summary}
-              source={{
-                uri: data?.question?.imoji,
-              }}
-              width={140}
-              height={140}
-            />
+            <View style={styles.emojiWrap}>
+              {data && (
+                <WebView
+                  source={{uri: data?.question?.imoji}}
+                  javaScriptEnabled={true}
+                  domStorageEnabled={true}
+                  style={styles.emoji}
+                />
+              )}
+            </View>
             <Text style={styles.questionText}>{data?.question?.question}</Text>
           </View>
           <View style={styles.column}>
@@ -134,8 +159,10 @@ const VoteScreen = () => {
                 <Text style={styles.continueText}>Tap to continue</Text>
               </View>
             )}
-            {!isShuffled && !isVoted && generateShuffleButton()}
-            {!isSelected && isShuffled && <View style={styles.shuffleBlank} />}
+            {isShuffled < 7 && !isVoted && generateShuffleButton()}
+            {isShuffled >= 7 && !isVoted && (
+              <View style={styles.shuffleBlank} />
+            )}
           </View>
         </View>
       </View>
@@ -149,16 +176,23 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     backgroundColor: theme.quiz.purple,
+    paddingTop: '10%',
+  },
+  emojiWrap: {
+    height: 240,
+  },
+  emoji: {
+    width: 240,
+    height: 100,
+    backgroundColor: 'transparent',
   },
   wrap: {
     width: '100%',
     height: '100%',
-    borderTopColor: theme.white,
-    borderTopWidth: 1,
     padding: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 60,
+    gap: 10,
   },
   questionProcess: {
     fontSize: 18,
@@ -241,3 +275,125 @@ const styles = StyleSheet.create({
 });
 
 export default VoteScreen;
+
+const InviteView = ({
+  people,
+  school,
+  refresh,
+}: {
+  people: number;
+  school: string;
+  refresh: () => any;
+}) => {
+  const handleShareClick = async () => {
+    await Share.share({
+      message: 'Skrr | We can start if you come!',
+    });
+  };
+
+  return (
+    <View style={inviteStyles.container}>
+      <View style={inviteStyles.main}>
+        <Image
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{width: 140, height: 140}}
+          source={require('../assets/images/loveletter_move.gif')}
+        />
+        <Text style={inviteStyles.title}>
+          {`Your school needs ${5 - people} more\nmember to use Skrr`}
+        </Text>
+        <Text
+          style={
+            inviteStyles.friendText
+          }>{`4 of 5 members from ${school} are now on Skrr`}</Text>
+        <View style={inviteStyles.peopleBox}>
+          <TouchableOpacity onPress={refresh} style={inviteStyles.refreshBox}>
+            <Image
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{width: 13, height: 13}}
+              source={require('../assets/images/refresh.png')}
+            />
+            <Text style={inviteStyles.refreshText}>Refresh</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TouchableOpacity
+        onPress={handleShareClick}
+        style={inviteStyles.shareButton}>
+        <Image
+          style={inviteStyles.sms}
+          source={require('../assets/images/sms.png')}
+        />
+        <Text style={inviteStyles.shareButtonText}>Invite a friend</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const inviteStyles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 50,
+  },
+  main: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 24,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  friendText: {
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: '#5E5E5E',
+  },
+  friendCount: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  shareButton: {
+    width: '80%',
+    height: 54,
+    borderRadius: 60,
+    backgroundColor: theme.white,
+    shadowColor: theme.shadow,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 16,
+    elevation: 16,
+    shadowOpacity: 0.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  shareButtonText: {
+    fontSize: 17,
+    fontWeight: '700',
+  },
+  sms: {
+    width: 24,
+    height: 24,
+    position: 'absolute',
+    left: '8%',
+  },
+  peopleBox: {
+    gap: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  refreshBox: {
+    gap: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  refreshText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#939393',
+  },
+});
