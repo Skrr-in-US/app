@@ -20,4 +20,8 @@ export const modalAtom = atom({
   visible: false,
 });
 
-export const userAtom = atom({});
+export const isNeedInviteAtom = atom(false);
+
+export const userAtom = atom([] as any);
+
+export const colorAtom = atom([] as any);
