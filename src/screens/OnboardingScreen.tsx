@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -15,6 +16,8 @@ import {theme} from '../styles/theme';
 import {useAtom} from 'jotai';
 import {signupAtom} from '../context';
 import {useUser} from '../hooks/useUser';
+import {useRefreshFcdToken} from '../services/mutation';
+import messaging from '@react-native-firebase/messaging';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Onboarding'>;
@@ -23,14 +26,18 @@ type Props = {
 const OnboardingScreen: React.FC<Props> = ({navigation}) => {
   const {isLoggedIn} = useUser();
   const [signup, setSignup] = useAtom(signupAtom);
+  const {mutate} = useRefreshFcdToken();
   const isTyping = !!signup.age;
 
   useEffect(() => {
-    console.log('왜야ㅏㄴ디냐고');
-    console.log(isLoggedIn);
-    if (isLoggedIn) {
-      navigation.navigate('Skrr');
-    }
+    (async () => {
+      if (isLoggedIn) {
+        const fcd = await messaging().getToken();
+        mutate(fcd);
+        navigation.navigate('Tab');
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, navigation]);
 
   const handleSignup = (ageText: string) => {
@@ -60,6 +67,7 @@ const OnboardingScreen: React.FC<Props> = ({navigation}) => {
           <Text style={styles.ageText}>Enter your age</Text>
           <TextInput
             placeholder="Age"
+            keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
             style={styles.input}
             onChangeText={handleSignup}
             value={String(signup.age)}
