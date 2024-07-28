@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Image,
   KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -46,6 +47,7 @@ const AgeScreen: React.FC<Props> = ({navigation}) => {
         )}
         <Text style={styles.question}>Age</Text>
         <TextInput
+          keyboardType={Platform.OS === 'android' ? 'numeric' : 'number-pad'}
           placeholder="Age"
           style={styles.input}
           onChangeText={handleChangeText}
