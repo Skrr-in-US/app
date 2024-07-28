@@ -1,11 +1,28 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useModal} from '../hooks/useModal';
 import {theme} from '../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
 
+const continueUrl = 'https://lm4igjit2hy.typeform.com/to/OLaV42uq';
+
 const PaymentModal = () => {
   const {closeModal} = useModal();
+
+  const handleContinueClick = async () => {
+    const supported = await Linking.canOpenURL(continueUrl);
+
+    if (supported) {
+      await Linking.openURL(continueUrl);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -24,7 +41,7 @@ const PaymentModal = () => {
         </View>
         <Image
           style={styles.letter}
-          source={require('../assets/images/letter.png')}
+          source={require('../assets/images/searchletter.png')}
         />
         <Text style={styles.perweek}>Reveal 10 Names{'\n'}Per Week</Text>
         <View style={styles.footer}>
@@ -36,7 +53,7 @@ const PaymentModal = () => {
             <Text style={styles.priceText}>30% OFF</Text>
           </LinearGradient>
           <Text style={styles.priceAmount}>$4.99/week</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleContinueClick}>
             <LinearGradient
               colors={['#FFBA00', '#F68A00']}
               start={{x: 0, y: 0}}
@@ -71,7 +88,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: '92%',
-    height: '72%',
+    height: '82%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 17,
