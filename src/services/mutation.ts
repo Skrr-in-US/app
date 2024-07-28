@@ -3,8 +3,10 @@ import {
   createAlert,
   createQuestion,
   deleteQuestion,
+  refreshFcd,
   requestSignin,
   requestSignup,
+  requestSupport,
   shuffleQuestion,
   updateQuestion,
 } from './api';
@@ -48,5 +50,17 @@ export const useSignin = () => {
 export const useShuffleQuestion = () => {
   return useMutation({
     mutationFn: shuffleQuestion,
+  });
+};
+
+export const useSupport = () => {
+  return useMutation({
+    mutationFn: requestSupport,
+  });
+};
+
+export const useRefreshFcdToken = () => {
+  return useMutation({
+    mutationFn: refreshFcd,
   });
 };

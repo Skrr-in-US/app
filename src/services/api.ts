@@ -43,6 +43,7 @@ type CreateAlertDto = {
   receiveUser: number;
   summary: string;
   gender: string;
+  question: string;
 };
 
 export const createAlert = async (query: CreateAlertDto) => {
@@ -74,5 +75,24 @@ export const requestSignin = async (signin: any) => {
 
 export const getUser = async () => {
   const {data} = await skrr.get('/auth/user', await authorization());
+  return data;
+};
+
+export const refreshFcd = async (fcd: string) => {
+  const {data} = await skrr.put('/auth/fcd', {fcd}, await authorization());
+  return data;
+};
+
+// support
+
+export const requestSupport = async (content: string) => {
+  const {data} = await skrr.post('/ask', {content}, await authorization());
+  return data;
+};
+
+// school
+
+export const getSchool = async (school: string) => {
+  const {data} = await skrr.get('/school/search', {params: {school}});
   return data;
 };
