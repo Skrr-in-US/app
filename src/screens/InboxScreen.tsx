@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -21,15 +22,29 @@ type Props = {
 
 const InboxScreen: React.FC<Props> = ({navigation}) => {
   const {openModal} = useModal();
-  const {data, isSuccess} = useQuery(query.alert());
+  const {data, isSuccess, refetch} = useQuery(query.alert());
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleOpenPaymentModal = () => {
     openModal({component: <PaymentModal />});
   };
 
+  const handleRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+      refetch();
+    }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.inboxList}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        style={styles.inboxList}>
         {isSuccess &&
           data.map((inbox: any) => {
             const imageSource = (() => {
