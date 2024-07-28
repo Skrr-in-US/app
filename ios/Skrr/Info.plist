@@ -9,11 +9,11 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.united.skrr</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>Skrr</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -21,63 +21,96 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>0.0.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-    	<key>NSAllowsArbitraryLoads</key>
-    	<true/>
-    	<key>NSExceptionDomains</key>
-    	<dict>
-        	<key>localhost</key>
-        	<dict>
-            	<key>NSExceptionAllowsInsecureHTTPLoads</key>
-            	<true/>
-        	</dict>
-    	</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
+	<key>SCSDKClientId</key>
+	<string>13de1768-33c6-40d2-8cd9-59b821d8d1e1</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>skrrrr://main/oauth2</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+       <dict>
+        	<key>CFBundleTypeRole</key>
+           	<string>Editor</string>
+		   	<key>CFBundleURLName</key>
+           	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<!--
+               	Enter your redirect scheme below.
+               	For e.g. if your redirect url is "myapp://snap-kit/oauth2"
+				then the scheme is "myapp".
+           -->
+           <key>CFBundleURLSchemes</key>
+           <array>
+               <string>skrrrr</string>
+           </array>
+       </dict>
+   </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+		<string>instagramstories</string>
+		<string>instagram-stories</string>
+		<string>snapchat</string>
+		<string>bitmoji-sdk</string>
+		<string>itms-apps</string>
+	</array>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the camera to do x_thing.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the bluetooth to do x_thing.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>The application does not use this feature</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the bluetooth to do x_thing.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>[REASON]</string>
+	<string>The application does not use this feature</string>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-	<string>[REASON]</string>
+	<string>The application does not use this feature</string>
 	<key>NSCameraUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the camera to do x_thing.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the contacts to do x_thing.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the faceid to do x_thing.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the location to do x_thing.</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
 		<key>YOUR-PURPOSE-KEY</key>
 		<string>[REASON]</string>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the location to do x_thing.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the microphone to do x_thing.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the motion to do x_thing.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the photo library to do x_thing.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the library to do x_thing.</string>
 	<key>NSRemindersFullAccessUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the full access to do x_thing.</string>
 	<key>NSSiriUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the usage to do x_thing.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the speech recognition to do x_thing.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>[REASON]</string>
+	<string>Skrr needs to access the user tracking usage to do x_thing.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.ttf</string>
