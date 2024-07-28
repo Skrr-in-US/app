@@ -1,12 +1,5 @@
 import React, {useRef} from 'react';
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from '../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -18,6 +11,8 @@ import ViewShot from 'react-native-view-shot';
 import Share from 'react-native-share';
 import {useModal} from '../hooks/useModal';
 import PaymentModal from '../components/PaymentModal';
+// import {CreativeKit} from '@snapchat/snap-kit-react-native';
+// import RNFS from 'react-native-fs';
 
 type Props = {
   route: RouteProp<RootStackParamList, 'Detail'>;
@@ -62,20 +57,83 @@ const DetailScreen: React.FC<Props> = ({route, navigation}) => {
     openModal({component: <PaymentModal />});
   };
 
-  const onPressCaptureAndShare = async () => {
+  // const onPressSnapChatShare = async () => {
+  //   const uri = await viewShotRef.current?.capture?.();
+  //   if (uri) {
+  //     const image = `file://${uri}`;
+  //     // const stickerUrl = image;
+  //     // const attachmentUrl = image;
+  //     console.log(image);
+
+  //     const base64 = await RNFS.readFile(image, 'base64');
+  //     console.log(1);
+  //     // console.log(base64);
+
+  //     CreativeKit.sharePhoto({
+  //       content: {
+  //         // raw: base64,
+  //         uri: base64,
+  //       },
+  //       sticker: {
+  //         uri: base64,
+  //         width: 200,
+  //         height: 200,
+  //         posX: 0.5,
+  //         posY: 0.5,
+  //       },
+  //       attachmentUrl: 'file://',
+  //       caption: 'captionText',
+  //       // attachmentUrl: image,
+  //     }).catch(error => {
+  //       console.log(error.toString());
+  //     });
+  //     // const apple =
+  //     // 'https://cdn.pixabay.com/photo/2016/02/23/17/42/orange-1218158_960_720.png';
+
+  //     // const orange =
+  //     //   'https://i.namu.wiki/i/uwOpUaWZPXhxxrVZyID_VATqmJvDiJmM8tLYpzlgKcDLWTtehtl9G9_4h8qGYW3t918v1V2a96R0Hu1X5xiNVQ.webp';
+  //     // const photoContent = {
+  //     //   content: {
+  //     //     uri: apple,
+  //     //   },
+  //     // sticker: {
+  //     //   uri: apple,
+  //     //   width: 300,
+  //     //   height: 300,
+  //     //   posX: 0.5,
+  //     //   posY: 0.6,
+  //     //   rotationDegreesInClockwise: 0,
+  //     //   isAnimated: false,
+  //     // },
+  //     // caption: 'caption string',
+  //     // attachmentUrl: apple,
+  //     // };
+
+  //     // CreativeKit.sharePhoto(photoContent)
+  //     //   .then(() => {
+  //     //     console.log('success');
+  //     //   })
+  //     //   .catch(error => {
+  //     //     console.log(error);
+  //     //   });
+  //   }
+  // };
+
+  const onPressCaptureAndInstagramShare = async () => {
     const uri = await viewShotRef.current?.capture?.();
     if (uri) {
-      const image = Platform.OS === 'android' ? uri : uri;
+      const image = `file://${uri}`;
+      try {
+        const {success} = await Share.shareSingle({
+          social: Share.Social.INSTAGRAM_STORIES as any,
+          appId: '1001723847816320',
+          stickerImage: image,
+        });
 
-      const {success} = await Share.shareSingle({
-        social: Share.Social.INSTAGRAM_STORIES as any,
-        appId: '1001723847816320',
-        backgroundImage: image,
-        backgroundBottomColor: theme.quiz.pink,
-        backgroundTopColor: theme.quiz.pink,
-      });
-
-      console.log(success);
+        console.log(success);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -120,26 +178,39 @@ const DetailScreen: React.FC<Props> = ({route, navigation}) => {
             <Text style={styles.noticeText}>Skrr app on appstore</Text>
           </View>
         </ViewShot>
-        <TouchableOpacity onPress={onPressCaptureAndShare} style={styles.share}>
-          <LinearGradient
-            colors={[
-              '#ECCD60',
-              '#FAA85C',
-              '#F78458',
-              '#F56C7F',
-              '#FF3879',
-              '#FF37D2',
-            ]}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            style={styles.gradient}>
-            <Text style={styles.shareText}>Share!</Text>
+        <View style={styles.share}>
+          {/* <TouchableOpacity
+            onPress={onPressSnapChatShare}
+            style={styles.snapBox}>
+            <Text style={styles.snapText}>Share!</Text>
             <Image
-              style={styles.shareEmoji}
-              source={require('../assets/images/instagram.png')}
+              style={styles.snapLogo}
+              source={require('../assets/images/snap.png')}
             />
-          </LinearGradient>
-        </TouchableOpacity>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.gradient}
+            onPress={onPressCaptureAndInstagramShare}>
+            <LinearGradient
+              colors={[
+                '#ECCD60',
+                '#FAA85C',
+                '#F78458',
+                '#F56C7F',
+                '#FF3879',
+                '#FF37D2',
+              ]}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              style={styles.gradientBox}>
+              <Text style={styles.snapText}>Share!</Text>
+              <Image
+                style={styles.instagram}
+                source={require('../assets/images/instagram.png')}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.footer}>
         <TouchableOpacity
@@ -256,22 +327,53 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 2, height: 4},
     shadowRadius: 4,
     elevation: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
+  },
+  snapBox: {
+    width: 260,
+    height: 58,
+    backgroundColor: '#FFFC00',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 28,
+  },
+  snapText: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: theme.white,
+  },
+  instagram: {
+    position: 'absolute',
+    right: 20,
+  },
+  snapLogo: {
+    width: 40,
+    height: 40,
+    position: 'absolute',
+    right: 20,
   },
   shareText: {
     fontSize: 17,
     fontWeight: '700',
     color: theme.white,
   },
-  shareEmoji: {
-    position: 'absolute',
-    right: 20,
-  },
   gradient: {
     width: '100%',
-    height: '100%',
+    height: 58,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 28,
+  },
+  gradientBox: {
+    width: '100%',
+    height: 58,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 28,
+    flexDirection: 'row',
   },
   unlockButton: {
     width: '94%',
