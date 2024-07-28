@@ -1,15 +1,38 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {theme} from '../styles/theme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StackNavigationProp} from '@react-navigation/stack';
 import RootStackParamList from '../types/RootStackParamList';
+import {useSetAtom} from 'jotai';
+import {colorAtom} from '../context';
+import {shuffleArray} from '../utils/shuffleArray';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Description'>;
 };
+const backgroundColorList = shuffleArray([
+  '#8E34FF',
+  '#E95FE4',
+  '#4E7CF2',
+  '#F27F4E',
+  '#32C08C',
+  '#85CD11',
+  '#11ABCD',
+  '#6F8DA4',
+  '#885851',
+  '#555555',
+  '#F35252',
+  '#F0AF31',
+]);
 
 const DescriptionScreen: React.FC<Props> = ({navigation}) => {
+  const setBackgroundColor = useSetAtom(colorAtom);
+
+  useEffect(() => {
+    setBackgroundColor(backgroundColorList);
+  }, [setBackgroundColor]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
