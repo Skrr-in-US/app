@@ -1,10 +1,20 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import React from 'react';
+import React, {useState} from 'react';
 import RootStackParamList from '../types/RootStackParamList';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {theme} from '../styles/theme';
 import {useSetAtom} from 'jotai';
 import {signupAtom} from '../context';
+import {useQuery} from '@tanstack/react-query';
+import {query} from '../services/query';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Grade'>;
@@ -12,10 +22,20 @@ type Props = {
 
 const SchoolScreen: React.FC<Props> = ({navigation}) => {
   const setSignup = useSetAtom(signupAtom);
+  const [search, setSearch] = useState('');
+  const {data, refetch} = useQuery(query.school(search));
+  console.log(data);
 
   const handleSetSchool = (school: string) => {
     setSignup(prev => ({...prev, school}));
     navigation.navigate('FirstName');
+  };
+
+  const handleChangeSearch = (keyword: string) => {
+    setSearch(keyword);
+    setTimeout(() => {
+      refetch();
+    }, 500);
   };
 
   return (
@@ -33,26 +53,41 @@ const SchoolScreen: React.FC<Props> = ({navigation}) => {
         <Text style={styles.headerText}>Pick your school</Text>
       </View>
       <View style={styles.body}>
-        <View style={styles.selectButtonTop} />
+        <View style={styles.selectButtonTop}>
+          <TextInput
+            onChangeText={handleChangeSearch}
+            value={search}
+            style={styles.selectButtonInput}
+            placeholder="Search your school"
+          />
+        </View>
         <View style={styles.selectOption}>
           <Text style={styles.selectOptionText}>HIGH SCHOOL</Text>
         </View>
-        {Array.from({length: 30}).map((_, i) => (
-          <TouchableOpacity
-            onPress={() => handleSetSchool('BSSM')}
-            key={i}
-            style={styles.selectButton}>
-            <Image source={require('../assets/images/School.png')} />
-            <View style={styles.schoolInfo}>
-              <Text style={styles.schoolInfoName}>Martin Luther School</Text>
-              <Text style={styles.schoolInfoDescription}>Queens, NY</Text>
-            </View>
-            <View style={styles.memberInfo}>
-              <Text style={styles.memberCount}>30</Text>
-              <Text style={styles.memberText}>MEMBERS</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+        <ScrollView>
+          {data?.map((school: any) => (
+            <TouchableOpacity
+              onPress={() => handleSetSchool(school.school)}
+              key={school.id}
+              style={styles.selectButton}>
+              <Image
+                source={{uri: school.logo}}
+                // eslint-disable-next-line react-native/no-inline-styles
+                style={{width: 38, height: 38}}
+              />
+              <View style={styles.schoolInfo}>
+                <Text style={styles.schoolInfoName}>{school.school}</Text>
+                <Text style={styles.schoolInfoDescription}>
+                  {school.county}, {school.state}
+                </Text>
+              </View>
+              <View style={styles.memberInfo}>
+                <Text style={styles.memberCount}>{school.people}</Text>
+                <Text style={styles.memberText}>MEMBERS</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -101,9 +136,17 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 20,
     fontSize: 16,
     fontWeight: '600',
+  },
+  selectButtonInput: {
+    fontSize: 16,
+    fontWeight: '500',
+    borderBottomWidth: 1,
+    borderBottomColor: '#efefef',
+    paddingVertical: 6,
+    paddingHorizontal: 4,
   },
   selectButton: {
     width: '100%',
