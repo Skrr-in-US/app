@@ -109,8 +109,6 @@
 	<string>Skrr needs to access the usage to do x_thing.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Skrr needs to access the speech recognition to do x_thing.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>Skrr needs to access the user tracking usage to do x_thing.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.ttf</string>

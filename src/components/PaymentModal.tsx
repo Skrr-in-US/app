@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
-  Linking,
+  // Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,69 +10,112 @@ import {
 import {useModal} from '../hooks/useModal';
 import {theme} from '../styles/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import WebView from 'react-native-webview';
 
-const continueUrl = 'https://lm4igjit2hy.typeform.com/to/OLaV42uq';
+// const continueUrl = 'https://lm4igjit2hy.typeform.com/to/zOL3cAxW';
 
 const PaymentModal = () => {
+  const [isClickedPayment, setIsClickedPayment] = useState(false);
   const {closeModal} = useModal();
 
   const handleContinueClick = async () => {
-    const supported = await Linking.canOpenURL(continueUrl);
-
-    if (supported) {
-      await Linking.openURL(continueUrl);
-    }
+    setIsClickedPayment(prev => !prev);
+    // console.log(handleClick);
+    // handleClick();
+    // setIsClickedContinue(prev => !prev);
+    // const supported = await Linking.canOpenURL(continueUrl);
+    // if (supported) {
+    // await Linking.openURL(continueUrl);
+    // }
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={closeModal} style={styles.background} />
-      <LinearGradient
-        colors={['#040204', '#2D2B2D']}
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
-        style={styles.modal}>
-        <View style={styles.header}>
-          <Text style={styles.title}>See who likes you</Text>
-          <View style={styles.headerBox}>
-            <Text style={styles.subtitle}>with</Text>
-            <Text style={styles.godmode}>⚡️GOD MODE</Text>
+      {isClickedPayment ? (
+        <>
+          <TouchableOpacity
+            onPress={closeModal}
+            style={styles.backgroundModal}
+          />
+          <View style={styles.webview}>
+            <WebView
+              source={{uri: 'https://lm4igjit2hy.typeform.com/to/zOL3cAxW'}}
+              javaScriptEnabled
+              domStorageEnabled
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                zIndex: 80,
+                borderRadius: 14,
+              }}
+            />
           </View>
-        </View>
-        <Image
-          style={styles.letter}
-          source={require('../assets/images/searchletter.png')}
-        />
-        <Text style={styles.perweek}>Reveal 10 Names{'\n'}Per Week</Text>
-        <View style={styles.footer}>
+        </>
+      ) : (
+        <>
+          <TouchableOpacity onPress={closeModal} style={styles.background} />
           <LinearGradient
-            colors={['#FAB500', '#F39E00']}
+            colors={['#040204', '#2D2B2D']}
             start={{x: 0, y: 0}}
             end={{x: 0, y: 1}}
-            style={styles.priceTag}>
-            <Text style={styles.priceText}>30% OFF</Text>
+            style={styles.modal}>
+            <View style={styles.header}>
+              <Text style={styles.title}>See who likes you</Text>
+              <View style={styles.headerBox}>
+                <Text style={styles.subtitle}>with</Text>
+                <Text style={styles.godmode}>⚡️GOD MODE</Text>
+              </View>
+            </View>
+            <Image
+              style={styles.letter}
+              source={require('../assets/images/searchletter.png')}
+            />
+            <Text style={styles.perweek}>
+              Reveal 10 Names{'\n'}Via Your Email
+            </Text>
+            <View style={styles.footer}>
+              <LinearGradient
+                colors={['#FAB500', '#F39E00']}
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 1}}
+                style={styles.priceTag}>
+                <Text style={styles.priceText}>FREE!</Text>
+              </LinearGradient>
+              <Text style={styles.priceAmount}>Submit your email👇</Text>
+              <TouchableOpacity onPress={handleContinueClick}>
+                <LinearGradient
+                  colors={['#FFBA00', '#F68A00']}
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  style={styles.continue}>
+                  <Text style={styles.priceAmount}>Continue</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <Text onPress={closeModal} style={styles.maybelater}>
+                Maybe Later
+              </Text>
+            </View>
           </LinearGradient>
-          <Text style={styles.priceAmount}>$4.99/week</Text>
-          <TouchableOpacity onPress={handleContinueClick}>
-            <LinearGradient
-              colors={['#FFBA00', '#F68A00']}
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              style={styles.continue}>
-              <Text style={styles.priceAmount}>Continue</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-          <Text onPress={closeModal} style={styles.maybelater}>
-            Maybe Later
-          </Text>
-        </View>
-      </LinearGradient>
+        </>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  webview: {
+    width: '86%',
+    height: '86%',
+    position: 'absolute',
+  },
+  backgroundModal: {
     width: '100%',
     height: '100%',
     position: 'absolute',
@@ -158,7 +201,7 @@ const styles = StyleSheet.create({
   },
   priceAmount: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '600',
     color: theme.white,
   },
   continue: {

@@ -54,7 +54,9 @@ const DetailScreen: React.FC<Props> = ({route, navigation}) => {
   const viewShotRef = useRef<ViewShot>(null);
 
   const handleOpenPaymentModal = () => {
-    openModal({component: <PaymentModal />});
+    openModal({
+      component: <PaymentModal />,
+    });
   };
 
   // const onPressSnapChatShare = async () => {

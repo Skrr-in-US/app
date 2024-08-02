@@ -24,6 +24,7 @@ import HeaderSupportButton from '../components/HeaderSupportButton';
 import AboutScreen from '../screens/AboutScreen';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import ErrorScreen from '../screens/ErrorScreen';
 
 const FormStack = createStackNavigator<RootStackParamList>();
 
@@ -256,6 +257,13 @@ const RootNavigator = () => {
         <FormStack.Screen
           name="Age"
           component={AgeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <FormStack.Screen
+          name="Error"
+          component={ErrorScreen}
           options={{
             headerShown: false,
           }}

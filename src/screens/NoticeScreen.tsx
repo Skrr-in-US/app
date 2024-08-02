@@ -22,34 +22,32 @@ const NoticeScreen: React.FC<Props> = ({navigation}) => {
 
   const handleAllowClick = () => {
     requestNotifications(['alert'])
-      .then(async res => {
+      .then(async () => {
         const fcd = await messaging().getToken();
-        if (res.status === 'granted') {
-          console.log(fcd);
-          const name = `${signup.firstName} ${signup.lastName}`;
-          const {age, grade, password, school, gender} = signup;
-          const signupData = {
-            age,
-            grade,
-            password,
-            school,
-            name,
-            fcd,
-            gender: gender.toLowerCase(),
-          };
+        console.log(fcd);
+        const name = `${signup.firstName} ${signup.lastName}`;
+        const {age, grade, password, school, gender} = signup;
+        const signupData = {
+          age,
+          grade,
+          password,
+          school,
+          name,
+          fcd,
+          gender: gender.toLowerCase(),
+        };
 
-          if (!signup.isLoginMode) {
-            await signupMutate(signupData);
-          }
-
-          const token = await signinMutate({age, name, password});
-          AsyncStorage.setItem('@token', token);
-          await refreshFcd(fcd);
-          navigation.navigate('Description');
+        if (!signup.isLoginMode) {
+          await signupMutate(signupData);
         }
+
+        const token = await signinMutate({age, name, password});
+        AsyncStorage.setItem('@token', token);
+        await refreshFcd(fcd);
+        navigation.navigate('Description');
       })
-      .catch(e => {
-        console.log(e);
+      .catch(() => {
+        navigation.navigate('Error');
       });
   };
 
@@ -74,7 +72,7 @@ NOTIFICATIONS ON`}
           </View>
           <View style={styles.noticeButtonBox}>
             <TouchableOpacity
-              onPress={() => navigation.goBack()}
+              onPress={handleAllowClick}
               style={styles.noticeDenyButton}>
               <Text style={styles.noticeButtonText}>Don't Allow</Text>
             </TouchableOpacity>

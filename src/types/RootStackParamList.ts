@@ -14,6 +14,7 @@ type RootStackParamList = {
   Tab: undefined;
   Age: undefined;
   About: undefined;
+  Error: undefined;
 };
 
 export default RootStackParamList;
