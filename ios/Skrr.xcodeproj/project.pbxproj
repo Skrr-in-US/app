@@ -229,6 +229,7 @@
 				8AC013B5D285D2D78DAD3FD2 /* [CP] Embed Pods Frameworks */,
 				010507ABEFA0513A5102B961 /* [CP] Copy Pods Resources */,
 				04F7C12A2FDFCEE3110D9B67 /* [CP-User] [RNFB] Core Configuration */,
+				CDD922D1261240A7B4ACA71B /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -320,7 +321,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT \\\"/bin/sh ../node_modules/@sentry/react-native/scripts/sentry-xcode.sh $REACT_NATIVE_XCODE\\\"\"\n";
 		};
 		010507ABEFA0513A5102B961 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -446,6 +447,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Skrr-SkrrTests/Pods-Skrr-SkrrTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CDD922D1261240A7B4ACA71B /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Upload Debug Symbols to Sentry";
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh ../node_modules/@sentry/react-native/scripts/sentry-xcode-debug-files.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 

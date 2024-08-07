@@ -12,6 +12,8 @@ import {theme} from '../styles/theme';
 import {StackNavigationProp} from '@react-navigation/stack';
 import RootStackParamList from '../types/RootStackParamList';
 import LinearGradient from 'react-native-linear-gradient';
+import {useModal} from '../hooks/useModal';
+import LeaveModal from '../components/LeaveModal';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Inbox'>;
@@ -21,7 +23,8 @@ const channelTalkUrl = 'https://skrrinus.channel.io/home';
 const privacyPolicyUrl =
   'https://kimhyunjun.notion.site/Privacy-Policy-83a8e1322fa747baad141604201046d6?pvs=4';
 
-const AboutScreen: React.FC<Props> = () => {
+const AboutScreen: React.FC<Props> = ({navigation}) => {
+  const {openModal} = useModal();
   const handleContactClick = async () => {
     const supported = await Linking.canOpenURL(channelTalkUrl);
 
@@ -41,6 +44,12 @@ const AboutScreen: React.FC<Props> = () => {
   const handleShareClick = async () => {
     await Share.share({
       message: 'Skrr | We can start if you come!',
+    });
+  };
+
+  const handleLeaveClick = () => {
+    openModal({
+      component: <LeaveModal navigation={navigation} />,
     });
   };
 
@@ -97,6 +106,17 @@ const AboutScreen: React.FC<Props> = () => {
               <Text style={styles.buttonText}>Invite a friend</Text>
             </View>
           </LinearGradient>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleLeaveClick}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={[styles.buttonBox, {paddingHorizontal: 20}]}>
+          <Image
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{width: 45, height: 45}}
+            source={require('../assets/images/leave.png')}
+          />
+          <Text style={styles.buttonText}>Leave Skrr</Text>
         </TouchableOpacity>
       </View>
     </View>
