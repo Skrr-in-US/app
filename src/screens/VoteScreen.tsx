@@ -17,6 +17,7 @@ import {useCreateAlert, useShuffleQuestion} from '../services/mutation';
 import {useUser} from '../hooks/useUser';
 import {WebView} from 'react-native-webview';
 import {shuffleArray} from '../utils/shuffleArray';
+import {track} from '@amplitude/analytics-react-native';
 
 const backgroundColorList = shuffleArray([
   '#8E34FF',
@@ -62,6 +63,7 @@ const VoteScreen = () => {
       question: data.question.question,
       gender: userData[0].gender,
     });
+    track('handleVote', {...data, ...userData});
     setIsVoted(user.id);
   };
 
@@ -71,6 +73,7 @@ const VoteScreen = () => {
       setExcept(String(data.question.id));
       return setVote(prev => ({...prev, step: 1}));
     }
+    track('nextVote', {...data, ...userData});
     setVote(prev => ({...prev, step: prev.step + 1}));
     setIsVoted(0);
     setExcept(String(data.question.id));

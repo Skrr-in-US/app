@@ -4,6 +4,7 @@ import {Provider} from 'jotai';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 // import {init} from '@amplitude/analytics-react-native';
 import * as Sentry from '@sentry/react-native';
+import * as amplitude from '@amplitude/analytics-react-native';
 
 Sentry.init({
   dsn: 'https://82bad5d0ffa8b2211ce34095ec12182a@o4506432587563008.ingest.us.sentry.io/4507733666496512',
@@ -16,6 +17,9 @@ Sentry.init({
     profilesSampleRate: 1.0,
   },
 });
+
+amplitude.init('7c57d1b30170798bece7bacee382023a');
+amplitude.track('Sign Up');
 
 // const API_KEY = '';
 const queryClient = new QueryClient();

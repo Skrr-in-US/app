@@ -14,6 +14,7 @@ import RootStackParamList from '../types/RootStackParamList';
 import LinearGradient from 'react-native-linear-gradient';
 import {useModal} from '../hooks/useModal';
 import LeaveModal from '../components/LeaveModal';
+import {track} from '@amplitude/analytics-react-native';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Inbox'>;
@@ -27,7 +28,7 @@ const AboutScreen: React.FC<Props> = ({navigation}) => {
   const {openModal} = useModal();
   const handleContactClick = async () => {
     const supported = await Linking.canOpenURL(channelTalkUrl);
-
+    track('handleContactClick', {});
     if (supported) {
       await Linking.openURL(channelTalkUrl);
     }
@@ -35,19 +36,22 @@ const AboutScreen: React.FC<Props> = ({navigation}) => {
 
   const handlePrivacyClick = async () => {
     const supported = await Linking.canOpenURL(privacyPolicyUrl);
-
+    track('handlePrivacyClick', {});
     if (supported) {
       await Linking.openURL(privacyPolicyUrl);
     }
   };
 
   const handleShareClick = async () => {
+    track('handleShareClick', {});
     await Share.share({
       message: 'Skrr | We can start if you come!',
+      url: 'https://apps.apple.com/us/app/skrr/id6544790598',
     });
   };
 
   const handleLeaveClick = () => {
+    track('handleLeaveClick', {});
     openModal({
       component: <LeaveModal navigation={navigation} />,
     });

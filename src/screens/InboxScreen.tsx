@@ -15,6 +15,7 @@ import {useQuery} from '@tanstack/react-query';
 import {query} from '../services/query';
 import {useModal} from '../hooks/useModal';
 import PaymentModal from '../components/PaymentModal';
+import {track} from '@amplitude/analytics-react-native';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Inbox'>;
@@ -31,6 +32,7 @@ const InboxScreen: React.FC<Props> = ({navigation}) => {
 
   const handleRefresh = React.useCallback(() => {
     setRefreshing(true);
+    track('handleRefresh', {...data});
     setTimeout(() => {
       setRefreshing(false);
       refetch();
@@ -59,7 +61,10 @@ const InboxScreen: React.FC<Props> = ({navigation}) => {
             })();
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate('Detail', {id: inbox.id})}
+                onPress={() => {
+                  track('clickInboxDetail', {...data, ...inbox});
+                  navigation.navigate('Detail', {id: inbox.id});
+                }}
                 style={styles.inboxItem}
                 key={inbox.id}>
                 <Image style={styles.diamonds} source={imageSource} />
