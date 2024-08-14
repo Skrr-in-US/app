@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>ko</string>
-		<string>en</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -17,6 +12,11 @@
 	<string>com.united.skrr</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ko</string>
+		<string>en</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>Skrr</string>
 	<key>CFBundlePackageType</key>
@@ -25,8 +25,30 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>skrrrr</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+		<string>instagramstories</string>
+		<string>instagram-stories</string>
+		<string>snapchat</string>
+		<string>bitmoji-sdk</string>
+		<string>itms-apps</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -42,41 +64,15 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>SCSDKClientId</key>
-	<string>13de1768-33c6-40d2-8cd9-59b821d8d1e1</string>
-	<key>SCSDKRedirectUrl</key>
-	<string>skrrrr://main/oauth2</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>skrrrr</string>
-			</array>
-		</dict>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>instagram</string>
-		<string>instagramstories</string>
-		<string>instagram-stories</string>
-		<string>snapchat</string>
-		<string>bitmoji-sdk</string>
-		<string>itms-apps</string>
-	</array>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Skrr needs to access the camera to do x_thing.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Skrr needs to access the bluetooth to do x_thing.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>The application does not use this feature</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Skrr needs to access the bluetooth to do x_thing.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>The application does not use this feature</string>
+	<key>NSCalendarsUsageDescription</key>
 	<string>The application does not use this feature</string>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
 	<string>The application does not use this feature</string>
@@ -109,6 +105,10 @@
 	<string>Skrr needs to access the usage to do x_thing.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Skrr needs to access the speech recognition to do x_thing.</string>
+	<key>SCSDKClientId</key>
+	<string>13de1768-33c6-40d2-8cd9-59b821d8d1e1</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>skrrrr://main/oauth2</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.ttf</string>

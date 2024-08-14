@@ -291,6 +291,7 @@ const InviteView = ({
   const handleShareClick = async () => {
     await Share.share({
       message: 'Skrr | We can start if you come!',
+      url: 'https://apple.co/3WU7sjZ',
     });
   };
 

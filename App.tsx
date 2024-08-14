@@ -19,7 +19,6 @@ Sentry.init({
 });
 
 amplitude.init('7c57d1b30170798bece7bacee382023a');
-amplitude.track('Sign Up');
 
 // const API_KEY = '';
 const queryClient = new QueryClient();

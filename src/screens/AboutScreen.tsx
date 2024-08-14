@@ -46,7 +46,7 @@ const AboutScreen: React.FC<Props> = ({navigation}) => {
     track('handleShareClick', {});
     await Share.share({
       message: 'Skrr | We can start if you come!',
-      url: 'https://apps.apple.com/us/app/skrr/id6544790598',
+      url: 'https://apple.co/3WU7sjZ',
     });
   };
 
